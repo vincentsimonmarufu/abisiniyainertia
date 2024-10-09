@@ -37,7 +37,8 @@ class RidesController extends Controller
             'route_name' => 'required',
             'bus_name' => 'required',
             'departure_time' => 'required',
-            'departure_date' => 'required'
+            'departure_date' => 'required',
+            'gender' => 'required',
         ]);
 
         Rides::create($validated);
@@ -55,11 +56,10 @@ class RidesController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit($id)
+    public function edit(Rides $ride)
     {
-        $result = Rides::findOrFail($id);
         return Inertia::render('Rides/Edit', [
-            'ride' => $result,
+            'ride' => $ride,
         ]);
     }
 

@@ -11,6 +11,10 @@ const Index = ({ rides }) => {
             accessor: "route_name",
         },
         {
+            title: "Gender",
+            accessor: "gender",
+        },
+        {
             title: "Bus Name",
             accessor: "bus_name",
         },
@@ -28,7 +32,7 @@ const Index = ({ rides }) => {
             render: ({ id }) => (
                 <div>
                     <Link
-                        href={route("rides.edit", id)}
+                        href={route("rides.edit", { ride: id })}
                         className="p-button p-component p-button-success mr-1"
                     >
                         Edit

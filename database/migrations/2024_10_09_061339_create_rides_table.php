@@ -16,6 +16,7 @@ return new class extends Migration {
             $table->string('bus_name');
             $table->time('departure_time');
             $table->date('departure_date');
+            $table->string('gender');
             $table->timestamps();
         });
     }

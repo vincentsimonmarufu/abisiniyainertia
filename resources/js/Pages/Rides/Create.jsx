@@ -1,18 +1,20 @@
 import React, { useState } from "react";
 import Layout from "@/Layouts/layout/layout.jsx";
 import { InputText } from "primereact/inputtext";
-import InputError from "@/Components/InputError";
 import { Dropdown } from "primereact/dropdown";
 import { Button } from "primereact/button";
-import { router } from "@inertiajs/react";
+import { router, usePage } from "@inertiajs/react";
 import { Panel } from "primereact/panel";
+import { RadioButton } from "primereact/radiobutton";
 
 const Create = () => {
+    const { errors } = usePage().props;
     const [values, setValues] = useState({
         route_name: null,
         bus_name: null,
         departure_time: "",
         departure_date: "",
+        gender: "",
     });
 
     const cities = [
@@ -53,6 +55,13 @@ const Create = () => {
         }));
     }
 
+    function handleGenderChange(e) {
+        setValues((values) => ({
+            ...values,
+            gender: e.value,
+        }));
+    }
+
     function handleSubmit(e) {
         e.preventDefault();
         router.post("/rides", values);
@@ -82,6 +91,9 @@ const Create = () => {
                                 placeholder="Select a Route Name"
                                 className="w-full"
                             />
+                            {errors.route_name && (
+                                <div>{errors.route_name}</div>
+                            )}
                         </div>
                         <div className="mb-3">
                             <label
@@ -98,6 +110,7 @@ const Create = () => {
                                 placeholder="Select a Bus"
                                 className="w-full"
                             />
+                            {errors.bus_name && <div>{errors.bus_name}</div>}
                         </div>
                         <div className="mb-3">
                             <label
@@ -114,6 +127,9 @@ const Create = () => {
                                 value={values.departure_time}
                                 onChange={handleChange}
                             />
+                            {errors.departure_time && (
+                                <div>{errors.departure_time}</div>
+                            )}
                         </div>
                         <div className="mb-3">
                             <label
@@ -129,6 +145,38 @@ const Create = () => {
                                 value={values.departure_date}
                                 onChange={handleChange}
                             />
+                            {errors.departure_date && (
+                                <div>{errors.departure_date}</div>
+                            )}
+                        </div>
+                        <div className="mb-3">
+                            <div className="flex flex-wrap gap-3">
+                                <div className="flex align-items-center">
+                                    <RadioButton
+                                        inputId="male"
+                                        name="gender"
+                                        value="Male"
+                                        onChange={handleGenderChange}
+                                        checked={values.gender === "Male"}
+                                    />
+                                    <label htmlFor="male" className="ml-2">
+                                        Male
+                                    </label>
+                                </div>
+                                <div className="flex align-items-center">
+                                    <RadioButton
+                                        inputId="female"
+                                        name="gender"
+                                        value="Female"
+                                        onChange={handleGenderChange}
+                                        checked={values.gender === "Female"}
+                                    />
+                                    <label htmlFor="female" className="ml-2">
+                                        Female
+                                    </label>
+                                </div>
+                            </div>
+                            {errors.route_name && <div>{errors.gender}</div>}
                         </div>
 
                         <Button label="Create" severity="success"></Button>

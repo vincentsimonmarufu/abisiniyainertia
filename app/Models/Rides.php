@@ -9,5 +9,5 @@ class Rides extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['route_name', 'bus_name', 'departure_time', 'departure_date'];
+    protected $fillable = ['route_name', 'bus_name', 'departure_time', 'departure_date', 'gender'];
 }
